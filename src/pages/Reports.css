@@ -1,0 +1,42 @@
+.reports-container {
+  background-color: #f5f5f5;
+}
+
+.summary-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.summary-card.income {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.summary-card.expense {
+  background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+}
+
+.summary-card.savings {
+  background: linear-gradient(135deg, #007bff 0%, #0dcaf0 100%);
+}
+
+.summary-card.ratio {
+  background: linear-gradient(135deg, #6f42c1 0%, #e0aafe 100%);
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.category-item:last-child {
+  border-bottom: none;
+}
+
+.category-item .amount {
+  font-weight: bold;
+  color: #dc3545;
+}
