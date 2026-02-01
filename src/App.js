@@ -13,7 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AppContent() {
   const { token, user } = useContext(AuthContext);
-
   return (
     <Router>
       {token && user && <Navigation />}
