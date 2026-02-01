@@ -12,14 +12,14 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AppContent() {
-  const { token } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
 
   return (
     <Router>
-      {token && <Navigation />}
+      {token && user && <Navigation />}
       <Routes>
-        <Route path="/login" element={token ? <Navigate to="/dashboard" /> : <Login />} />
-        <Route path="/register" element={token ? <Navigate to="/dashboard" /> : <Register />} />
+        <Route path="/login" element={token && user ? <Navigate to="/dashboard" /> : <Login />} />
+        <Route path="/register" element={token && user ? <Navigate to="/dashboard" /> : <Register />} />
         <Route
           path="/dashboard"
           element={
