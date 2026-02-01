@@ -7,11 +7,13 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
     } else {
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
     }
   }, [token]);
 
