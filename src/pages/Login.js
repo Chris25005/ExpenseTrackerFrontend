@@ -12,7 +12,7 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,7 +29,7 @@ const Login = () => {
 
     try {
       const response = await authAPI.login(formData);
-      if(response && user){
+      login(response.data.user, response.data.token);
       navigate('/dashboard');
       }      
     } catch (err) {
