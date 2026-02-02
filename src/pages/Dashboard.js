@@ -3,8 +3,10 @@ import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 import { transactionAPI } from '../api/api';
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
+  const { user } = useAuth();
   const [stats, setStats] = useState({
     totalIncome: 0,
     totalExpense: 0,
@@ -16,7 +18,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchDashboardStats();
-  }, []);
+  }, [user]);
 
   const fetchDashboardStats = async () => {
     try {
