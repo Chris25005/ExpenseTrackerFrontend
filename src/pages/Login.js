@@ -30,8 +30,7 @@ const Login = () => {
     try {
       const response = await authAPI.login(formData);
       login(response.data.user, response.data.token);
-      navigate('/dashboard');
-      }      
+      navigate('/dashboard');     
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
