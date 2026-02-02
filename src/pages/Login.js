@@ -2,10 +2,11 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { authAPI } from '../api/api';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext, useAuth } from '../context/AuthContext';
 import './Auth.css';
 
 const Login = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -15,6 +16,12 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (user) {
+      navigate('/dashboard');
+    }
+  }, [user]);
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -30,7 +37,7 @@ const Login = () => {
     try {
       const response = await authAPI.login(formData);
       login(response.data.user, response.data.token);
-      navigate('/dashboard');     
+      //navigate('/dashboard');     
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
