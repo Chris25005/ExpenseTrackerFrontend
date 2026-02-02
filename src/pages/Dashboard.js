@@ -17,8 +17,9 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (user)
     fetchDashboardStats();
-  }, [user]);
+  }, []);
 
   const fetchDashboardStats = async () => {
     try {
