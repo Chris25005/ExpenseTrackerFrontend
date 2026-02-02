@@ -20,25 +20,15 @@ const Navigation = () => {
           💰 Expense Tracker
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse id="basic-navbar-nav">  
+          <NavbarText className='me-auto d-flex align-items-center'>
+            <h4 className='text-warning my-auto'>Welcome, {user ? user.name : 'Guest'}!</h4>
+          </NavbarText>        
           <Nav className="ms-auto">
             <Nav.Link href="/dashboard">Dashboard</Nav.Link>
             <Nav.Link href="/transactions">Transactions</Nav.Link>
             <Nav.Link href="/reports">Reports</Nav.Link>
-            
-            {user && (
-              <Dropdown>
-                <Dropdown.Toggle variant="secondary" id="dropdown-basic" className="ms-2">
-                  👤 {user.name}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href="/profile">Profile</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
+            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
