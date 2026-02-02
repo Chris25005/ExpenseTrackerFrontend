@@ -3,10 +3,8 @@ import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 import { transactionAPI } from '../api/api';
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
-import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
-  const { user, loading: authLoading } = useAuth();
   const [stats, setStats] = useState({
     totalIncome: 0,
     totalExpense: 0,
@@ -17,11 +15,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // STOP: Only fetch if we are done checking auth AND we have a user
-    if (!authLoading && user) {
-      fetchDashboardStats();
-    }
-  }, [authLoading, user]);
+     fetchDashboardStats();
+  }, []);
 
   const fetchDashboardStats = async () => {
     try {
