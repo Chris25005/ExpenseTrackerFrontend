@@ -92,10 +92,10 @@ export const transactionAPI = {
     }),
 
   // GET: Send userId in params
-  getDashboardStats: () => 
-     api.get('/transactions/stats/dashboard', { 
+  getDashboardStats: async() =>
+    await api.get('/transactions/stats/dashboard', { 
       params: { userId: getUserId() } 
-    })    
+    }) 
 };
 
 /* =========================
