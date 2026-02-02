@@ -95,8 +95,7 @@ export const transactionAPI = {
   getDashboardStats: () => 
      api.get('/transactions/stats/dashboard', { 
       params: { userId: getUserId() } 
-    });
-    
+    })    
 };
 
 /* =========================
