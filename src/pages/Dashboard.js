@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 import { transactionAPI } from '../api/api';
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
+import { AuthContext } from '../context/AuthContext';
 
 const Dashboard = () => {
   const { user, logout } = useContext(AuthContext);
