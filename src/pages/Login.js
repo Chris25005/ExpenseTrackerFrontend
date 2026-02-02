@@ -12,7 +12,7 @@ const Login = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,8 +29,9 @@ const Login = () => {
 
     try {
       const response = await authAPI.login(formData);
-      //login(response.data.user, response.data.token);
+      if(response && user){
       navigate('/dashboard');
+      }      
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
