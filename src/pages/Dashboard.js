@@ -5,6 +5,7 @@ import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Res
 import './Dashboard.css';
 
 const Dashboard = () => {
+  const { user, loading: authLoading } = useAuth();
   const [stats, setStats] = useState({
     totalIncome: 0,
     totalExpense: 0,
@@ -15,17 +16,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Get user from localStorage
-    const userData = localStorage.getItem('user');
-    
-    if (userData) {
+    // STOP: Only fetch if we are done checking auth AND we have a user
+    if (!authLoading && user) {
       fetchDashboardStats();
-    } else {
-      // 2. If no user, stop loading and maybe redirect
-      setLoading(false);
-      console.warn("No user found, waiting for auth...");
     }
-  }, []);
+  }, [authLoading, user]);
 
   const fetchDashboardStats = async () => {
     try {
