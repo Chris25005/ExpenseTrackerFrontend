@@ -43,23 +43,44 @@ export const authAPI = {
    TRANSACTION APIs
 ========================= */
 export const transactionAPI = {
-  //create: (data) => api.post('/transactions', data),
-   // Automatically inject userId from localStorage before sending
-  create: (data) => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    const payload = { ...data, userId: user?.id }; 
-    return api.post('/transactions', payload);
-  },
-  getAll: (params) => api.get('/transactions', { params }),
-  getById: (id) => api.get(`/transactions/${id}`),
-  update: (id, data) => api.put(`/transactions/${id}`, data),
-  delete: (id) => api.delete(`/transactions/${id}`),
+  // POST: Send userId in the body
+  create: (data) => api.post('/transactions', { ...data, userId: getUserId() }),
+
+  // GET: Send userId as a query parameter
+  getAll: (params) => api.get('/transactions', { 
+    params: { ...params, userId: getUserId() } 
+  }),
+
+  // GET: Send userId as a query parameter
+  getById: (id) => api.get(`/transactions/${id}`, { 
+    params: { userId: getUserId() } 
+  }),
+
+  // PUT: Send userId in the body
+  update: (id, data) => api.put(`/transactions/${id}`, { ...data, userId: getUserId() }),
+
+  // DELETE: Send userId as a query parameter
+  delete: (id) => api.delete(`/transactions/${id}`, { 
+    params: { userId: getUserId() } 
+  }),
+
+  // GET: Merge year/month with userId in params
   getMonthlySummary: (year, month) =>
-    api.get('/transactions/summary/monthly', { params: { year, month } }),
+    api.get('/transactions/summary/monthly', { 
+      params: { year, month, userId: getUserId() } 
+    }),
+
+  // GET: Merge year with userId in params
   getYearlySummary: (year) =>
-    api.get('/transactions/summary/yearly', { params: { year } }),
+    api.get('/transactions/summary/yearly', { 
+      params: { year, userId: getUserId() } 
+    }),
+
+  // GET: Send userId in params
   getDashboardStats: () =>
-    api.get('/transactions/stats/dashboard')
+    api.get('/transactions/stats/dashboard', { 
+      params: { userId: getUserId() } 
+    })
 };
 
 /* =========================
@@ -72,5 +93,8 @@ export const categoryAPI = {
   update: (id, data) => api.put(`/categories/${id}`, data),
   delete: (id) => api.delete(`/categories/${id}`)
 };
-
+const getUserId = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  return user?.id;
+};
 export default api;
