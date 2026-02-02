@@ -28,7 +28,24 @@ api.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
+// 2. New Response Interceptor (Add this)
+api.interceptors.response.use(
+  (response) => response, // If the request is successful, just return the response
+  (error) => {
+    // Check if the error is a 401 (Unauthorized)
+    if (error.response && error.response.status === 401) {
+      console.warn("Unauthorized! Redirecting to login...");
 
+      // Clear local storage so the app doesn't think we're still logged in
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+
+      // Force redirect to login page
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
 /* =========================
    AUTH APIs
 ========================= */
