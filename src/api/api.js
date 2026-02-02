@@ -77,9 +77,7 @@ export const transactionAPI = {
   update: (id, data) => api.put(`/transactions/${id}`, { ...data, userId: getUserId() }),
 
   // DELETE: Send userId as a query parameter
-  delete: (id) => api.delete(`/transactions/${id}`, { 
-    params: { id: id, userId: getUserId() } 
-  }),
+  delete: (id) => api.delete(`/transactions/${id}`),
 
   // GET: Merge year/month with userId in params
   getMonthlySummary: (year, month) =>
