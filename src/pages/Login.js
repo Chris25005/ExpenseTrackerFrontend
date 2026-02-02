@@ -29,7 +29,8 @@ const Login = () => {
 
     try {
       const response = await authAPI.login(formData);
-      login(response.data.user, response.data.token);
+      //login(response.data.user, response.data.token);
+      if(!localstorage.user)
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
