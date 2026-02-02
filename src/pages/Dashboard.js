@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 import { transactionAPI } from '../api/api';
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
-import { AuthContext } from '../context/AuthContext';
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
   const [stats, setStats] = useState({
     totalIncome: 0,
     totalExpense: 0,
@@ -17,9 +15,17 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if(!user)
-    fetchDashboardStats();
-  }, [user]);
+    // 1. Get user from localStorage
+    const userData = localStorage.getItem('user');
+    
+    if (userData) {
+      fetchDashboardStats();
+    } else {
+      // 2. If no user, stop loading and maybe redirect
+      setLoading(false);
+      console.warn("No user found, waiting for auth...");
+    }
+  }, []);
 
   const fetchDashboardStats = async () => {
     try {
