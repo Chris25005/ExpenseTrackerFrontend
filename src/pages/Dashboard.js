@@ -20,6 +20,7 @@ const Dashboard = () => {
 
   const fetchDashboardStats = async () => {
     try {
+      setLoading(true);
       const response = await transactionAPI.getDashboardStats();
       setStats(response.data);
       setLoading(false);
