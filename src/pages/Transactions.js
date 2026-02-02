@@ -66,11 +66,27 @@ const Transactions = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // 1. Get the user string from localStorage
+    const userString = localStorage.getItem('user');
+    
+    // 2. Parse it into a JavaScript object
+    const user = userString ? JSON.parse(userString) : null;
+
+    if (!user || !user.id) {
+      console.error("No user found in localStorage");
+      return; // Stop if there's no user to assign the transaction to
+    }
+
+    // 3. Create the payload with the userId added
+    const payload = { 
+      ...formData, 
+      userId: user.id 
+    };
       if (editingId) {
-        await transactionAPI.update(editingId, formData);
+        await transactionAPI.update(editingId, payload);
         setEditingId(null);
       } else {
-        await transactionAPI.create(formData);
+        await transactionAPI.create(payload);
       }
       setShowModal(false);
       setFormData({
