@@ -6,7 +6,7 @@ import './Dashboard.css';
 import { AuthContext } from '../context/AuthContext';
 
 const Dashboard = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [stats, setStats] = useState({
     totalIncome: 0,
     totalExpense: 0,
