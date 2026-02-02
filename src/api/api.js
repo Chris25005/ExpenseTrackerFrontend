@@ -92,10 +92,17 @@ export const transactionAPI = {
     }),
 
   // GET: Send userId in params
-  getDashboardStats: () =>
-    api.get('/transactions/stats/dashboard', { 
+  getDashboardStats: () => {
+     const userId = getUserId();
+    if (!userId) {
+      // Return a rejected promise so the call doesn't even hit the network
+      return Promise.reject("No User ID found for dashboard stats");
+    }
+     api.get('/transactions/stats/dashboard', { 
       params: { userId: getUserId() } 
-    })
+    });
+  }
+    
 };
 
 /* =========================
