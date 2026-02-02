@@ -15,12 +15,11 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-     fetchDashboardStats();
+    fetchDashboardStats();
   }, []);
 
   const fetchDashboardStats = async () => {
     try {
-      setLoading(true);
       const response = await transactionAPI.getDashboardStats();
       setStats(response.data);
       setLoading(false);
