@@ -5,6 +5,7 @@ import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Res
 import './Dashboard.css';
 
 const Dashboard = () => {
+  const { user, logout } = useContext(AuthContext);
   const [stats, setStats] = useState({
     totalIncome: 0,
     totalExpense: 0,
@@ -15,8 +16,9 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if(!user)
     fetchDashboardStats();
-  }, []);
+  }, [user]);
 
   const fetchDashboardStats = async () => {
     try {
