@@ -43,7 +43,13 @@ export const authAPI = {
    TRANSACTION APIs
 ========================= */
 export const transactionAPI = {
-  create: (data) => api.post('/transactions', data),
+  //create: (data) => api.post('/transactions', data),
+   // Automatically inject userId from localStorage before sending
+  create: (data) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const payload = { ...data, userId: user?.id }; 
+    return api.post('/transactions', payload);
+  },
   getAll: (params) => api.get('/transactions', { params }),
   getById: (id) => api.get(`/transactions/${id}`),
   update: (id, data) => api.put(`/transactions/${id}`, data),
