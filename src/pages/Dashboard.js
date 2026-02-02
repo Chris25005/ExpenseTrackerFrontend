@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Table } from 'react-bootstrap';
 import { transactionAPI } from '../api/api';
 import { PieChart, Pie, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
   const { user, loading: authLoading } = useAuth();
